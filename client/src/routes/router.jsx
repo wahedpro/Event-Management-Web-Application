@@ -4,6 +4,8 @@ import HomePage from "../pages/HomePage/HomePage";
 import EventsPage from "../pages/EventsPage/EventsPage";
 import MyEventPage from "../pages/MyEventPage/MyEventPage";
 import AddEventPage from "../pages/AddEventPage/AddEventPage";
+import LoginPage from "../pages/LoginPage/LoginPage";
+import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: "addevent",
         element: <AddEventPage/>
+      },
+      {
+        path: "login",
+        element:<LoginPage/>
+      },
+      {
+        path: "register",
+        element: <RegistrationPage/>
       }
     ],
   },
