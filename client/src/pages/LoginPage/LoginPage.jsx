@@ -12,6 +12,9 @@ const LoginPage = () => {
     event.preventDefault();
     setError("");
 
+    const email = event.target.email.value.trim();
+    const password = event.target.password.value.trim();
+
     if (!email || !password) {
       setError("Please enter both email and password.");
       return;
