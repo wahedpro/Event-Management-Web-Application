@@ -48,7 +48,7 @@ const LoginPage = () => {
           Login
         </button>
       </form>
-      <p>Do not have an account? <NavLink to="/register">Register Now</NavLink></p>
+      <p className="text-center py-5">Do not have an account? <NavLink to="/register" className="text-blue-400">Register Now</NavLink></p>
     </div>
   );
 };
