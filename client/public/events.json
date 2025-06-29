@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "title": "React Workshop",
+    "name": "John Doe",
+    "date": "2025-07-01T10:00",
+    "location": "Dhaka",
+    "description": "A beginner-friendly workshop on React fundamentals.",
+    "attendeeCount": 12
+  },
+  {
+    "id": "2",
+    "title": "MERN Stack Bootcamp",
+    "name": "Sarah Ahmed",
+    "date": "2025-07-05T14:00",
+    "location": "Chattogram",
+    "description": "Deep dive into MERN stack development.",
+    "attendeeCount": 20
+  },
+  {
+    "id": "3",
+    "title": "Startup Pitch Event",
+    "name": "Ali Khan",
+    "date": "2025-06-29T16:30",
+    "location": "Sylhet",
+    "description": "Present your startup ideas to potential investors.",
+    "attendeeCount": 8
+  },
+  {
+    "id": "4",
+    "title": "Design Thinking Workshop",
+    "name": "Nusrat Jahan",
+    "date": "2025-07-10T09:00",
+    "location": "Dhaka",
+    "description": "Learn how to approach problems creatively.",
+    "attendeeCount": 15
+  },
+  {
+    "id": "5",
+    "title": "AI in Healthcare",
+    "name": "Dr. Shuvo",
+    "date": "2025-07-15T11:00",
+    "location": "Rajshahi",
+    "description": "Exploring AI applications in healthcare systems.",
+    "attendeeCount": 25
+  },
+  {
+    "id": "6",
+    "title": "Freelancing 101",
+    "name": "Rina Akter",
+    "date": "2025-07-03T15:00",
+    "location": "Khulna",
+    "description": "Get started with freelancing and build your portfolio.",
+    "attendeeCount": 18
+  },
+  {
+    "id": "7",
+    "title": "Cyber Security Basics",
+    "name": "Tanvir Hasan",
+    "date": "2025-07-08T13:00",
+    "location": "Dhaka",
+    "description": "Learn to protect yourself from online threats.",
+    "attendeeCount": 10
+  }
+]
