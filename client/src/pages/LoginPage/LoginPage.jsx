@@ -1,18 +1,38 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+
   const [error, setError] = useState("");
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
+    setError("");
 
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
     const loginData = { email, password };
+    const res = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginData),
+    });
 
-    console.log(loginData);
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.message || "Login failed");
+    } else {
+      login(data.user);
+      navigate("/myevents");
+    }
   };
 
   return (
@@ -48,7 +68,12 @@ const LoginPage = () => {
           Login
         </button>
       </form>
-      <p className="text-center py-5">Do not have an account? <NavLink to="/register" className="text-blue-400">Register Now</NavLink></p>
+      <p className="text-center py-5">
+        Do not have an account?{" "}
+        <NavLink to="/register" className="text-blue-400">
+          Register Now
+        </NavLink>
+      </p>
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import { NavLink } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 const Navbar = () => {
-  const user = false;
+  const { user } = useContext(AuthContext);
   return (
     <nav className="bg-white sticky top-0 z-10 border-b border-gray-200">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
