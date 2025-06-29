@@ -34,6 +34,19 @@ async function run() {
       res.send(result);
     });
 
+    // login User
+    app.post("/login", async (req, res) => {
+      const { email, password } = req.body;
+      const user = await UsersCollection.findOne({ email, password });
+      if (!user) {
+        return res.status(400).json({ message: "Invalid email or password." });
+      }
+      res.json({
+        message: "Login successful!",
+        user,
+      });
+    });
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
