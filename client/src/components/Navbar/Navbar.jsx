@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <span className="font-bold text-xl">NexusEvents</span>
+          <span className="font-bold text-xl"><NavLink to="/">NexusEvents</NavLink></span>
         </div>
 
         {/* Links */}
@@ -17,10 +17,10 @@ const Navbar = () => {
           <NavLink to="/events" className="hover:text-indigo-600">
             Events
           </NavLink>
-          <NavLink to="/add-event" className="hover:text-indigo-600">
+          <NavLink to="/addevent" className="hover:text-indigo-600">
             Add Event
           </NavLink>
-          <NavLink to="/my-events" className="hover:text-indigo-600">
+          <NavLink to="/myevents" className="hover:text-indigo-600">
             My Events
           </NavLink>
         </div>
