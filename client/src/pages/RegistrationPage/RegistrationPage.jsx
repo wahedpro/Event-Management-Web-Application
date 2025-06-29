@@ -7,15 +7,38 @@ const RegistrationPage = () => {
   const [error, setError] = useState("");
 
   const handleRegister = (event) => {
-    event.preventDefault();
-    const name = event.target.name.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-    const photoURL = event.target.photoURL.value;
+  event.preventDefault();
+  const name = event.target.name.value;
+  const email = event.target.email.value;
+  const password = event.target.password.value;
+  const photoURL = event.target.photoURL.value;
 
-    const userData = { name, email, password, photoURL };
-    console.log(userData);
-  };
+  const userData = { name, email, password, photoURL };
+
+  // Fetch request to backend
+  fetch("http://localhost:5000/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Server response:", data);
+      if (data.insertedId) {
+        // Success
+        navigate("/login");
+      } else {
+        // Failure
+        setError("Registration failed. Please try again.");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      setError("Something went wrong.");
+    });
+};
 
   return (
     <div className="max-w-md mx-auto p-4">
