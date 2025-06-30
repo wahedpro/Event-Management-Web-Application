@@ -1,6 +1,11 @@
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 const AddEventPage = () => {
-  
-    const handleAddEvent = (event) => {
+
+  const {user} = useContext(AuthContext)
+
+  const handleAddEvent = (event) => {
     event.preventDefault();
     const title = event.target.title.value;
     const name = event.target.name.value;
@@ -8,6 +13,8 @@ const AddEventPage = () => {
     const location = event.target.location.value;
     const description = event.target.description.value;
     const attendeeCount = 0;
+    const email= user.email;
+
 
     const newEvent = {
       title,
@@ -16,8 +23,28 @@ const AddEventPage = () => {
       location,
       description,
       attendeeCount,
+      email,
     };
-    console.log(newEvent);
+
+    // Backend API call
+    fetch("http://localhost:5000/addEvent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEvent),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          event.target.reset();
+        } else {
+          alert("Failed to add event.");
+        }
+      })
+      .catch((error) => {
+        alert("Something went wrong.");
+      });
   };
 
   return (
@@ -85,7 +112,6 @@ const AddEventPage = () => {
             required
           ></textarea>
         </div>
-
 
         {/* Submit Button */}
         <button
