@@ -29,7 +29,6 @@ async function run() {
     // Register User
     app.post("/register", async (req, res) => {
       const newUser = req.body;
-      console.log(newUser);
       const result = await UsersCollection.insertOne(newUser);
       res.send(result);
     });
@@ -45,6 +44,13 @@ async function run() {
         message: "Login successful!",
         user,
       });
+    });
+
+    // Add Event
+    app.post("/addEvent", async (req, res) => {
+      const newEvent = req.body;
+      const result = await EventsCollection.insertOne(newEvent);
+      res.send(result);
     });
 
     // Connect the client to the server	(optional starting in v4.7)
