@@ -82,6 +82,14 @@ async function run() {
       res.json({ message: "Event deleted successfully." });
     });
 
+    // get all the route
+    app.get("/events", async (req, res) => {
+      const result = await EventsCollection.find({})
+        .sort({ date: -1, time: -1 })
+        .toArray();
+      res.send(result);
+    });
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
