@@ -1,7 +1,14 @@
+import FeaturedEvents from "./components/FeaturedEvents"
+import HeroSection from "./components/HeroSection"
+import Testimonials from "./components/Testimonials"
 
 function HomePage() {
   return (
-    <div className="flex justify-center items-center py-48">HomePage</div>
+    <div>
+      <HeroSection/>
+      <FeaturedEvents/>
+      <Testimonials/>
+    </div>
   )
 }
 
