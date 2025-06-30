@@ -90,6 +90,34 @@ async function run() {
       res.send(result);
     });
 
+    app.post("/joinEvent", async (req, res) => {
+      const { eventId, email } = req.body;
+
+      const event = await EventsCollection.findOne({
+        _id: new ObjectId(eventId),
+      });
+
+      if (!event) {
+        return res.status(404).json({ message: "Event not found" });
+      }
+
+      if (event.joinedUsers && event.joinedUsers.includes(email)) {
+        return res
+          .status(400)
+          .json({ message: "You have already joined this event." });
+      }
+
+      const updated = await EventsCollection.updateOne(
+        { _id: new ObjectId(eventId) },
+        {
+          $inc: { attendeeCount: 1 },
+          $addToSet: { joinedUsers: email },
+        }
+      );
+
+      res.json({ message: "You have joined the event." });
+    });
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
