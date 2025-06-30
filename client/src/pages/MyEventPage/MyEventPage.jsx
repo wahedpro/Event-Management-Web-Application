@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import MyEventCard from "../../components/MyEventCard/MyEventCard";
 import UpdateModal from "../../components/UpdateModal/UpdateModal";
+import ConfirmModal from "../../components/ConfirmModal/ConfirmModal";
 
 function MyEventPage() {
   const { user } = useContext(AuthContext);
@@ -11,6 +12,8 @@ function MyEventPage() {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const [deleteId, setDeleteId] = useState(null); 
 
   useEffect(() => {
     if (user?.email) {
@@ -33,16 +36,21 @@ function MyEventPage() {
     }
   }, [user]);
 
-  const handleDelete = async (id) => {
+  const handleDeleteConfirm = async () => {
+    if (!deleteId) return;
     try {
-      const res = await fetch(`http://localhost:5000/events/${id}`, {
-        method: "DELETE",
+      const res = await fetch("http://localhost:5000/deleteEvent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: deleteId }),
       });
-      if (res.ok) {
-        setMyEvents((prev) => prev.filter((event) => event._id !== id));
-      }
-    } catch (err) {
-      console.error(err);
+
+      const data = await res.json();
+
+      setMyEvents((prev) => prev.filter((event) => event._id !== deleteId));
+      setDeleteId(null);
+    } catch (error) {
+      setDeleteId(null);
     }
   };
 
@@ -66,10 +74,11 @@ function MyEventPage() {
         return;
       }
 
-      // UI update
       setMyEvents((prev) =>
         prev.map((ev) => (ev._id === updatedEvent._id ? updatedEvent : ev))
       );
+      setModalOpen(false);
+      setSelectedEvent(null);
     } catch (err) {
       console.error("Update error:", err);
       alert("Something went wrong.");
@@ -99,7 +108,7 @@ function MyEventPage() {
               setSelectedEvent(e);
               setModalOpen(true);
             }}
-            onDelete={handleDelete}
+            onDelete={(id) => setDeleteId(id)}
           />
         ))}
       </div>
@@ -107,9 +116,20 @@ function MyEventPage() {
       {isModalOpen && selectedEvent && (
         <UpdateModal
           isOpen={isModalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={() => {
+            setModalOpen(false);
+            setSelectedEvent(null);
+          }}
           initialData={selectedEvent}
           onUpdate={handleUpdate}
+        />
+      )}
+
+      {deleteId && (
+        <ConfirmModal
+          message="Are you sure you want to delete this event?"
+          onConfirm={handleDeleteConfirm}
+          onCancel={() => setDeleteId(null)}
         />
       )}
     </>

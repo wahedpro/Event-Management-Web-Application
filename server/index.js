@@ -65,19 +65,21 @@ async function run() {
     app.put("/updateEvent/:id", async (req, res) => {
       const id = req.params.id;
       const updatedData = req.body;
-
       delete updatedData._id;
-
       const result = await EventsCollection.updateOne(
         { _id: new ObjectId(id) },
         { $set: updatedData }
       );
-
-      if (result.modifiedCount === 0) {
-        return res.status(404).json({ message: "No event was updated." });
-      }
-
       res.json({ message: "Event updated successfully." });
+    });
+
+    // event delete route
+    app.post("/deleteEvent", async (req, res) => {
+      const { id } = req.body;
+      const result = await EventsCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
+      res.json({ message: "Event deleted successfully." });
     });
 
     // Connect the client to the server	(optional starting in v4.7)
