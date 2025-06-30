@@ -4,6 +4,7 @@ require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
+const { ObjectId } = require("mongodb");
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ub1fi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -58,6 +59,25 @@ async function run() {
       const { email } = req.body;
       const result = await EventsCollection.find({ email }).toArray();
       res.send(result);
+    });
+
+    // Update Event Route
+    app.put("/updateEvent/:id", async (req, res) => {
+      const id = req.params.id;
+      const updatedData = req.body;
+
+      delete updatedData._id;
+
+      const result = await EventsCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updatedData }
+      );
+
+      if (result.modifiedCount === 0) {
+        return res.status(404).json({ message: "No event was updated." });
+      }
+
+      res.json({ message: "Event updated successfully." });
     });
 
     // Connect the client to the server	(optional starting in v4.7)
