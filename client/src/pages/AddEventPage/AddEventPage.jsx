@@ -27,7 +27,7 @@ const AddEventPage = () => {
     };
 
     // Backend API call
-    fetch("http://localhost:5000/addEvent", {
+    fetch("https://server-sable-sigma.vercel.app/addEvent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

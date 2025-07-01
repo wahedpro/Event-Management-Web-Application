@@ -19,7 +19,7 @@ const EventCard = ({ event }) => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/joinEvent", {
+      const res = await fetch("https://server-sable-sigma.vercel.app/joinEvent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -17,7 +17,7 @@ function MyEventPage() {
 
   useEffect(() => {
     if (user?.email) {
-      fetch("http://localhost:5000/myEvents", {
+      fetch("https://server-sable-sigma.vercel.app/myEvents", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ function MyEventPage() {
   const handleDeleteConfirm = async () => {
     if (!deleteId) return;
     try {
-      const res = await fetch("http://localhost:5000/deleteEvent", {
+      const res = await fetch("https://server-sable-sigma.vercel.app/deleteEvent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: deleteId }),
@@ -57,7 +57,7 @@ function MyEventPage() {
   const handleUpdate = async (updatedEvent) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/updateEvent/${updatedEvent._id}`,
+        `https://server-sable-sigma.vercel.app/updateEvent/${updatedEvent._id}`,
         {
           method: "PUT",
           headers: {

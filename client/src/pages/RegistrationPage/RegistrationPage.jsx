@@ -16,7 +16,7 @@ const RegistrationPage = () => {
   const userData = { name, email, password, photoURL };
 
   // Fetch request to backend
-  fetch("http://localhost:5000/register", {
+  fetch("https://server-sable-sigma.vercel.app/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

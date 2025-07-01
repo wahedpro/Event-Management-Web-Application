@@ -8,7 +8,7 @@ const EventsPage = () => {
   const [filterOption, setFilterOption] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/events")
+    fetch("https://server-sable-sigma.vercel.app/events")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
